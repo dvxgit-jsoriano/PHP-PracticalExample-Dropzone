@@ -14,6 +14,11 @@
 
 ## Screenshots
 
-![Home Page](screenshots/1.png)
+### This is a basic application of dropzone. Simply drag/drop or upload to dropzone box and file will automatically be uploaded to dropzone_upload folder.
+![Basic Home](screenshots/3.png)
 
+### This example will show autoProcessQueue disabled, and max of 1 file upload. When button is clicked, the file will be uploaded via rocessQueue() dropzone method.
+![Process Page](screenshots/1.png)
+
+### This example will show same autoProcessQueue disabled and max of 1 file. But the uploading process will be done via JQuery AJAX to upload.php
 ![AJAX Page](screenshots/2.png)

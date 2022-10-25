@@ -27,7 +27,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.php">File Upload</a>
+                        <a class="nav-link active" aria-current="page" href="index.php">Basic Dropzone</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="process.php">File Upload</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="ajax.php">AJAX Upload</a>
@@ -39,42 +42,20 @@
 
     <header>
         <div class="container">
-            <h6 class="mt-4 mb-4 fst-italic">This example shows how limit and upload single file to server.</h6>
+            <h6 class="mt-4 mb-4 fst-italic">This example shows basic dropzone functionality with autoProcess and multiple uploads.</h6>
         </div>
     </header>
 
     <section>
         <div class="container mt-2">
-            <form action="upload.php" class="dropzone" id="dropzoneFrom"></form>
-
-            <div class="d-grid gap-2 mt-4">
-                <button id="btnUpload" class="btn btn-primary" type="button">Upload</button>
-            </div>
+            <form action="dropzone_upload.php" class="dropzone" id="dropzoneFrom"></form>
         </div>
     </section>
 </body>
 
 <script>
     Dropzone.options.dropzoneFrom = {
-        autoProcessQueue: false, // Prevent auto processing of queue
         maxFilesize: 2, // MB
-        maxFiles: 1,
-        //createImageThumbnails: false,
-        headers: {
-            "Authorization": "Bearer 823v75n827n059vn720571nv0571v" // Pass an authorzation code.
-        },
-        init: function() {
-            var dz = this;
-            /** Once button upload is click, it will process the uploading of file */
-            $("#btnUpload").click(function() {
-                dz.processQueue();
-            });
-            /** This code will limit the file previews to one */
-            this.on("maxfilesexceeded", function(file) {
-                this.removeAllFiles();
-                this.addFile(file);
-            });
-        }
     };
 </script>
 

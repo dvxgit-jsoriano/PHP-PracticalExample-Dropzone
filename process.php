@@ -14,13 +14,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Dropzone -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js" integrity="sha512-U2WE1ktpMTuRBPoCFDzomoIorbOyUv0sP8B+INA3EzNAhehbzED1rOJg6bCqPf/Tuposxb5ja/MAUnC8THSbLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <style>
-        /** This hides the progress */
-        .dz-progress {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
@@ -37,10 +30,10 @@
                         <a class="nav-link" aria-current="page" href="index.php">Basic Dropzone</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="process.php">File Upload</a>
+                        <a class="nav-link active" aria-current="page" href="process.php">File Upload</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="ajax.php">AJAX Upload</a>
+                        <a class="nav-link" aria-current="page" href="ajax.php">AJAX Upload</a>
                     </li>
                 </ul>
             </div>
@@ -49,7 +42,7 @@
 
     <header>
         <div class="container">
-            <h6 class="mt-4 mb-4 fst-italic">This example shows how to upload file using ajax instead of dropzone processQueue().</h6>
+            <h6 class="mt-4 mb-4 fst-italic">This example shows how limit and upload single file to server.</h6>
         </div>
     </header>
 
@@ -58,7 +51,7 @@
             <form action="upload.php" class="dropzone" id="dropzoneFrom"></form>
 
             <div class="d-grid gap-2 mt-4">
-                <button id="btnUpload" class="btn btn-primary" type="button" onclick="uploadNow()">Upload</button>
+                <button id="btnUpload" class="btn btn-primary" type="button">Upload</button>
             </div>
         </div>
     </section>
@@ -75,7 +68,10 @@
         },
         init: function() {
             var dz = this;
-
+            /** Once button upload is click, it will process the uploading of file */
+            $("#btnUpload").click(function() {
+                dz.processQueue();
+            });
             /** This code will limit the file previews to one */
             this.on("maxfilesexceeded", function(file) {
                 this.removeAllFiles();
@@ -83,27 +79,6 @@
             });
         }
     };
-
-    /** Once button upload is click, it will process the uploading of file */
-    function uploadNow() {
-        /** Since this process has a file upload, you shall pass a FormData to ajax. */
-        var formData = new FormData();
-        formData.append('file', $("#dropzoneFrom")[0].dropzone.getAcceptedFiles()[0]);
-
-        /** Call the ajax */
-        $.ajax({
-            type: "POST",
-            url: "upload.php",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                alert(response);
-                console.log(response);
-                $("#dropzoneFrom")[0].dropzone.removeAllFiles(); // Successful ajax response, remove the files inside the dropzone
-            }
-        });
-    }
 </script>
 
 </html>
